@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
 
-    <title>Blog Template for Bootstrap</title>
+    <title>Fish shop/Detail</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/blog/">
 
@@ -35,19 +35,24 @@
     <p class="col-md-8 fs-4" th:text="${it.getDisc()}"></p>
     <img th:src="${it.getUrl()}" height="400px" width="450px">
 </div>
-<form>
+<form method="post">
     <div class="form-group row">
         <label  class="col-sm-2 col-form-label col-form-label-sm">Ваше имя</label>
         <div class="col-sm-10">
-            <input type="text" name="name">
+            <label>
+                <input type="text" name="name">
+            </label>
         </div>
     </div>
     <div class="form-group row">
         <label  class="col-sm-2 col-form-label col-form-label-sm">Ваш номер телефона</label>
         <div class="col-sm-10">
-            <input type="text" name="contact">
+            <label>
+                <input type="text" name="contact">
+            </label>
         </div>
     </div>
+    <button type="submit" class="btn btn-warning">Оставить заявку</button>
 </form>
 </body>
 </html>

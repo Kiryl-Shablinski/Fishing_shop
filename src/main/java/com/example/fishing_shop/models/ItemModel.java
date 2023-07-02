@@ -14,7 +14,7 @@ public class ItemModel {
     @Column(name = "title")
     String title;
 
-     @Column(name = "shopt_disc")
+     @Column(name = "short_disc")
     String disc;
 
      @Column(name = "photo_url")

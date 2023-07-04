@@ -10,7 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin")
@@ -54,8 +56,32 @@ public class AdminController {
 return "clients";
 }
 
-@GetMapping("/checkClients/notactual{id}")
+@GetMapping("/checkClients/notactual/{id}")
     public RedirectView notActual(@PathVariable(value = "id") long id){
-        return new RedirectView();
+        Optional<ClientModel> optional = clientRepo.findById(id);
+        List<ClientModel> clientModels = new ArrayList<>();
+        optional.ifPresent(clientModels::add);
+        ClientModel clientModel;
+        clientModel = clientModels.get(0);
+        clientModel.setActual(false);
+        clientRepo.save(clientModel);
+        return new RedirectView("/admin/checkClients");
 }
+@GetMapping("/checkNotActual")
+    public String getNotActual(Model model){
+    List<ClientModel> clientList = clientRepo.findClientModelsByActual(false);
+    model.addAttribute("clientList",clientList);
+    return"notactual";
+}
+@GetMapping("/checkNotActual/{id}")
+    public RedirectView deleteFrom(@PathVariable(value = "id") long id){
+        clientRepo.deleteById(id);
+        return new RedirectView("/admin/checkNotActual");
+}
+@GetMapping("/checkItems")
+public String getAllItems(Model model){
+        List<ItemModel> listItems = itemRepo.findAll();
+        model.addAttribute("allItems", listItems);
+        return "allitems";
+    }
 }

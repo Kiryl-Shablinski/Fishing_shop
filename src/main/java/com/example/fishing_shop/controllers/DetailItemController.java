@@ -44,6 +44,7 @@ public class DetailItemController {
         clientModel.setName(name);
         clientModel.setContact(contact);
         clientModel.setItem(String.valueOf(id));
+        clientModel.setActual(true);
         clientRepo.save(clientModel);
         return new RedirectView("/");
     }

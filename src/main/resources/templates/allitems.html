@@ -37,8 +37,10 @@
       <div class="card-body d-flex flex-column align-items-start">
         <h2 th:text="${item.getTitle()}"></h2>
         <p><h5 th:text="${item.getDisc()}"></h5></p>
-        <p><img th:src="${item.getUrl()}"></p>
-        <a class="btn btn-primary" th:href="">Добавить товар</a>
+       <p><img th:src="${item.getUrl()}" height="300px" width="450px"></p>
+      <a class="btn btn-danger" th:href="'/admin/checkItems/deleteItem/'+ ${item.getId()}">Удалить товар</a>
+        <p></p>
+      <a class="btn btn-warning" th:href="'/admin/checkItems/editItem/'+ ${item.getId()}">Редактировать товар</a>
       </div>
     </div>
   </div>

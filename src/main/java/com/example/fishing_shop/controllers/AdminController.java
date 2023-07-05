@@ -84,4 +84,37 @@ public String getAllItems(Model model){
         model.addAttribute("allItems", listItems);
         return "allitems";
     }
+
+    @GetMapping("/checkItems/deleteItem/{id}")
+    public RedirectView deleteItem(@PathVariable(value = "id") long id){
+        itemRepo.deleteById(id);
+        return new RedirectView("/admin/checkItems");
+    }
+
+    @GetMapping("/checkItems/editItem/{id}")
+    public String editItem(@PathVariable (value = "id") long id,
+                           Model model){
+        Optional<ItemModel> itemModel = itemRepo.findById(id);
+        List<ItemModel> list = new ArrayList<>();
+        itemModel.ifPresent(list::add);
+        model.addAttribute("model", list);
+        return "edit";
+    }
+    @PostMapping("/checkItems/editItem/{id}")
+    public RedirectView editPostItem(@PathVariable(value = "id") long id,
+                                     @RequestParam String title,
+                                     @RequestParam String disc,
+                                     @RequestParam String url){
+        Optional<ItemModel> itemModel = itemRepo.findById(id);
+        List<ItemModel> list = new ArrayList<>();
+        itemModel.ifPresent(list::add);
+        ItemModel itemModel11 = list.get(0);
+        itemModel11.setDisc(disc);
+        itemModel11.setTitle(title);
+        if (url != ""  && url != null){
+            itemModel11.setUrl(url);
+        }
+        itemRepo.save(itemModel11);
+        return new RedirectView("/admin/checkItems");
+    }
 }
